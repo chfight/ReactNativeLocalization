@@ -1,6 +1,7 @@
 package com.babisoft.ReactNativeLocalization;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.SharedPreferences;
 
 import com.facebook.react.bridge.Callback;
@@ -37,7 +38,7 @@ public class ReactNativeLocalization extends ReactContextBaseJavaModule {
      * @return
      */
     private String getCurrentLanguage() {
-        Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
+        Locale current = Resources.getSystem().getConfiguration().locale;
         return current.getLanguage() + "-" + current.getCountry();
     }
     
@@ -58,11 +59,10 @@ public class ReactNativeLocalization extends ReactContextBaseJavaModule {
      *
      * @param callback
      */
-    @ReactMethod
-    public void getLanguage(Callback callback) {
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public String getLanguage() {
         String language = getCurrentLanguage();
-        System.out.println("The current language is " + language);
-        callback.invoke(null, language);
+        return language;
     }
 
     /**
