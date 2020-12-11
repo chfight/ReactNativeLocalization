@@ -37,22 +37,9 @@ public class ReactNativeLocalization extends ReactContextBaseJavaModule {
      * @return
      */
     private String getCurrentLanguage() {
-
-        // user locale takes precedence
-        String userLocale = this.getUserLocale();
-        if (userLocale != null) {
-            return userLocale;
-        }
-        
         Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
         return current.getLanguage() + "-" + current.getCountry();
     }
-
-
-    public String getUserLocale() {
-        return getPreferences().getString("locale_override", null);
-    }
-
     
     /**
      * Export to Javascript the variable language containing the current language
